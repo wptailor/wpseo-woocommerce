@@ -136,6 +136,7 @@ class Yoast_WooCommerce_SEO {
 				}
 			}
 		}
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts') );
 	}
 
 
@@ -850,6 +851,27 @@ class Yoast_WooCommerce_SEO {
 		_deprecated_function( __CLASS__ . '::' . __METHOD__, 'WooCommerce SEO 1.1.0', null );
 	}
 
+	/**
+	 * Enqueues the pluginscripts.
+	 */
+	public function enqueue_scripts() {
+		wp_enqueue_script( 'wp-seo-woo', plugins_url( 'woo-plugin' . WPSEO_CSSJS_SUFFIX . '.js', __FILE__ ), array(), WPSEO_VERSION, true );
+
+		wp_localize_script( 'wp-seo-woo', 'wpseoWooL10n', $this->localize_woo_script() );
+	}
+
+	/**
+	 * Localizes scripts for the wooplugin.
+	 * @return array
+	 */
+	private function localize_woo_script() {
+		return array(
+			'woo_desc_none'    => __( 'You should write a short description for this product.', 'yoast-woo-seo' ),
+			'woo_desc_short'   => __( 'The short description for this product too short.', 'yoast-woo-seo' ),
+			'woo_desc_good'    => __( 'Your short description has a good length.', 'yoast-woo-seo' ),
+			'woo_desc_long'    => __( 'The short description for this product is too long.', 'yoast-woo-seo' ),
+		);
+	}
 }
 
 
@@ -981,5 +1003,5 @@ class WPSEO_WooCommerce_Wrappers {
 
 		return WPSEO_Option_Woo::validate_bool( $bool_to_validate );
 	}
-
 }
+
