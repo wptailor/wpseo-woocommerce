@@ -71,5 +71,3 @@
 		document.getElementById( 'excerpt' ).addEventListener( "input", YoastSEO.app.analyzeTimer.bind( YoastSEO.app ) );
 	};
 }());
-
-
