@@ -19,7 +19,5 @@ if ( ! class_exists( 'Yoast_Product_WPSEO_WooCommerce' ) ) {
 				'Yoast'
 			);
 		}
-
 	}
-
 }
