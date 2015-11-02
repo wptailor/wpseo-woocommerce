@@ -275,7 +275,7 @@ class Yoast_WooCommerce_SEO {
 		if ( $word_count == 0 ) {
 			$wpseo_metabox->save_score_result( $results, 1, __( 'You should write a short description for this product.', 'yoast-woo-seo' ), 'woocommerce_shortdesc' );
 		} else if ( $word_count < 20 ) {
-			$wpseo_metabox->save_score_result( $results, 5, __( 'The short description for this product too short.', 'yoast-woo-seo' ), 'woocommerce_shortdesc' );
+			$wpseo_metabox->save_score_result( $results, 5, __( 'The short description for this product is too short.', 'yoast-woo-seo' ), 'woocommerce_shortdesc' );
 		} else if ( $word_count > 50 ) {
 			$wpseo_metabox->save_score_result( $results, 5, __( 'The short description for this product is too long.', 'yoast-woo-seo' ), 'woocommerce_shortdesc' );
 		} else {
@@ -866,7 +866,7 @@ class Yoast_WooCommerce_SEO {
 	private function localize_woo_script() {
 		return array(
 			'woo_desc_none'    => __( 'You should write a short description for this product.', 'yoast-woo-seo' ),
-			'woo_desc_short'   => __( 'The short description for this product too short.', 'yoast-woo-seo' ),
+			'woo_desc_short'   => __( 'The short description for this product is too short.', 'yoast-woo-seo' ),
 			'woo_desc_good'    => __( 'Your short description has a good length.', 'yoast-woo-seo' ),
 			'woo_desc_long'    => __( 'The short description for this product is too long.', 'yoast-woo-seo' ),
 		);
