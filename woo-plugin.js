@@ -2,29 +2,26 @@
 	/**
 	 * Adds eventlistener to load the Yoast WooCommerce plugin
 	 */
-	addEventListener( "load", function() {
-		// Wait for YoastSEO to be loaded
-		setTimeout(function() {
-			addPlugin();
-		}, 0);
+	jQuery( window ).on( 'YoastSEO:ready', function() {
+		new YoastWooCommercePlugin();
 	});
 
 	/**
 	 * Registers Plugin and Test for Yoast WooCommerce.
 	 */
-	function addPlugin() {
+	function YoastWooCommercePlugin() {
 		YoastSEO.app.registerPlugin( 'YoastWooCommerce', { 'status': 'ready' } );
 
-		YoastSEO.app.registerTest( 'productTitle', testProductDescription, testProductDescriptionScore, 'YoastWooCommerce' );
+		YoastSEO.app.registerTest( 'productTitle', this.productDescription, productDescriptionScore, 'YoastWooCommerce' );
 
-		addCallback();
+		this.addCallback();
 	}
 
 	/**
 	 * Scoring array for the product descriptions. Takes texts from the localize script in wpseo-commerce.php.
 	 * @type {{scoreArray: *[]}}
 	 */
-	var testProductDescriptionScore = {
+	var productDescriptionScore = {
 		scoreArray: [
 			{
 				max: 0,
@@ -54,7 +51,7 @@
 	 * Tests the length of the productdescription.
 	 * @returns {Number}
 	 */
-	var testProductDescription = function(){
+	YoastWooCommercePlugin.prototype.productDescription = function(){
 		var productDescription = document.getElementById( 'excerpt' ).value;
 		if (typeof tinyMCE !== 'undefined' && tinyMCE.get( 'excerpt') !== null) {
 			productDescription = tinyMCE.get( 'excerpt').getContent();
@@ -67,7 +64,11 @@
 	 * Adds callback to the excerpt field to trigger the analyzeTimer when product description is updated.
 	 * The tinyMCE triggers automatically since that inherets the binding from the content field tinyMCE.
 	 */
-	var addCallback = function() {
-		document.getElementById( 'excerpt' ).addEventListener( "input", YoastSEO.app.analyzeTimer.bind( YoastSEO.app ) );
+	YoastWooCommercePlugin.prototype.addCallback = function() {
+		var elem = document.getElementById( 'excerpt' );
+		if( elem !== null ){
+			elem.addEventListener( "input", YoastSEO.app.analyzeTimer.bind( YoastSEO.app ) );
+		}
+
 	};
 }());
