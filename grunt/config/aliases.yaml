@@ -3,11 +3,15 @@
 # Build everything
 build:
   - 'build:i18n'
+  - 'build:js'
 # Build internationalisation features
 'build:i18n':
   - 'addtextdomain'
   - 'makepot'
   - 'glotpress_download'
+# Build JSplugin files
+'build:js':
+  - 'uglify'
 # Check health of the project
 check:
   - 'jshint'
