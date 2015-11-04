@@ -19,7 +19,8 @@ module.exports = function(grunt) {
 				'*.php'
 			],
 			js: [
-				'*.js'
+				"js/*.js",
+				"!js/*.min.js"
 			],
 			phptests: 'tests/**/*.php',
 			get config() {
