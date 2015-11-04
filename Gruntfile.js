@@ -18,6 +18,9 @@ module.exports = function(grunt) {
 			php: [
 				'*.php'
 			],
+			js: [
+				'*.js'
+			],
 			phptests: 'tests/**/*.php',
 			get config() {
 				return project.paths.config + '*.js';
