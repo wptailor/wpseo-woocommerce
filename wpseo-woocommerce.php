@@ -96,13 +96,6 @@ class Yoast_WooCommerce_SEO {
 				add_action( 'admin_footer', array( $this, 'footer_js' ) );
 			}
 
-			add_filter( 'wpseo_body_length_score', array( $this, 'change_body_length_requirements' ), 10, 2 );
-			add_filter( 'wpseo_linkdex_results', array(
-				$this,
-				'add_woocommerce_specific_content_analysis_tests',
-			), 10, 3 );
-			add_filter( 'wpseo_pre_analysis_post_content', array( $this, 'add_product_images_to_content' ), 10, 2 );
-
 		} else {
 			if ( class_exists( 'WooCommerce', false ) ) {
 				$wpseo_options = WPSEO_Options::get_all();
