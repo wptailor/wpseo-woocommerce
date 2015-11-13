@@ -854,6 +854,11 @@ class Yoast_WooCommerce_SEO {
 	 * Enqueues the pluginscripts.
 	 */
 	public function enqueue_scripts() {
+		// Only do this on product pages.
+		if ( 'product' !== get_post_type( ) ) {
+			return;
+		}
+
 		wp_enqueue_script( 'wp-seo-woo', plugins_url( 'js/yoastseo-woo-plugin' . WPSEO_CSSJS_SUFFIX . '.js', __FILE__ ), array(), WPSEO_VERSION, true );
 
 		wp_localize_script( 'wp-seo-woo', 'wpseoWooL10n', $this->localize_woo_script() );
