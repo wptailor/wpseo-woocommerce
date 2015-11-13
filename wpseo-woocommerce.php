@@ -216,69 +216,6 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
-	 * Changes the body copy length requirements for products.
-	 *
-	 * @param array $lengthReqs The length requirements currently set.
-	 * @param array $job        The analysis job array.
-	 *
-	 * @return array
-	 */
-	function change_body_length_requirements( $lengthReqs, $job ) {
-		if ( $job['post_type'] === 'product' ) {
-			return array(
-				'good' => 200,
-				'ok'   => 150,
-				'poor' => 100,
-				'bad'  => 75,
-			);
-		}
-
-		return $lengthReqs;
-	}
-
-	/**
-	 * Check whether the current post is a product, if so, do some WooCommerce specific testing.
-	 *
-	 * @param array  $results The results for the content analysis.
-	 * @param array  $job     The analysis job array.
-	 * @param object $post    The post object for which we're running the analysis.
-	 *
-	 * @return mixed
-	 */
-	function add_woocommerce_specific_content_analysis_tests( $results, $job, $post ) {
-		if ( $post->post_type === 'product' ) {
-			$results = $this->test_short_description( $results, $post );
-		}
-
-		return $results;
-	}
-
-	/**
-	 * Test whether the short description is actually of decent length.
-	 *
-	 * @param array  $results The results for the content analysis.
-	 * @param object $post    The post object for which we're running the analysis.
-	 *
-	 * @return array
-	 */
-	function test_short_description( $results, $post ) {
-		global $wpseo_metabox;
-
-		$word_count = $wpseo_metabox->statistics->word_count( strip_tags( $post->post_excerpt ) );
-		if ( $word_count == 0 ) {
-			$wpseo_metabox->save_score_result( $results, 1, __( 'You should write a short description for this product.', 'yoast-woo-seo' ), 'woocommerce_shortdesc' );
-		} else if ( $word_count < 20 ) {
-			$wpseo_metabox->save_score_result( $results, 5, __( 'The short description for this product is too short.', 'yoast-woo-seo' ), 'woocommerce_shortdesc' );
-		} else if ( $word_count > 50 ) {
-			$wpseo_metabox->save_score_result( $results, 5, __( 'The short description for this product is too long.', 'yoast-woo-seo' ), 'woocommerce_shortdesc' );
-		} else {
-			$wpseo_metabox->save_score_result( $results, 9, __( 'Your short description has a good length.', 'yoast-woo-seo' ), 'woocommerce_shortdesc' );
-		}
-
-		return $results;
-	}
-
-	/**
 	 * Make sure the product images are used in calculating the score.
 	 *
 	 * @param string $content The content to modify
