@@ -95,7 +95,6 @@ class Yoast_WooCommerce_SEO {
 			if ( $this->options['metabox_woo_top'] === true ) {
 				add_action( 'admin_footer', array( $this, 'footer_js' ) );
 			}
-
 		} else {
 			if ( class_exists( 'WooCommerce', false ) ) {
 				$wpseo_options = WPSEO_Options::get_all();
