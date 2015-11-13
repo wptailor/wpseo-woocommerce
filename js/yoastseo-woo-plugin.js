@@ -52,7 +52,13 @@
 	 * @returns {Number}
 	 */
 	YoastWooCommercePlugin.prototype.productDescription = function(){
-		var productDescription = document.getElementById( 'excerpt' ).value;
+		var excerpt = document.getElementById( 'excerpt' );
+
+		if ( null === excerpt ) {
+			return 0;
+		}
+
+		var productDescription = excerpt.value;
 		if (typeof tinyMCE !== 'undefined' && tinyMCE.get( 'excerpt') !== null) {
 			productDescription = tinyMCE.get( 'excerpt').getContent();
 		}
