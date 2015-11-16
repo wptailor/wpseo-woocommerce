@@ -71,7 +71,7 @@
 	YoastWooCommercePlugin.prototype.addCallback = function() {
 		var elem = document.getElementById( 'excerpt' );
 		if( elem !== null ){
-			elem.addEventListener( "input", YoastSEO.app.analyzeTimer.bind( YoastSEO.app ) );
+			elem.addEventListener( 'input, YoastSEO.app.analyzeTimer.bind( YoastSEO.app ) );
 		}
 
 	};
