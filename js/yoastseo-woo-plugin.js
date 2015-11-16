@@ -76,17 +76,25 @@
 
 	};
 
+	/**
+	 * Registers the addImageToContent modification
+	 */
 	YoastWooCommercePlugin.prototype.registerModifications = function() {
 		var callback = this.addImageToContent.bind( this );
 
 		YoastSEO.app.registerModification( 'content', callback, 'YoastWooCommercePlugin', 10 );
 	};
 
+	/**
+	 * Adds the images from the pagegallery to the content to be analyzed by the analyzer.
+	 * @param data {String}
+	 * @returns {String}
+	 */
 	YoastWooCommercePlugin.prototype.addImageToContent = function( data ) {
-		var images = jQuery( "#product_images_container" ).find( "img" );
+		var images = jQuery( '#product_images_container' ).find( 'img' );
 
-		for (i in images){
-			data += images[ i ];
+		for (var i = 0; i < images.length; i++ ){
+			data += images[ i ].outerHTML;
 		}
 		return data;
 	}
