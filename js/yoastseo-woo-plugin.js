@@ -15,6 +15,10 @@
 		YoastSEO.app.registerTest( 'productTitle', this.productDescription, productDescriptionScore, 'YoastWooCommerce' );
 
 		this.addCallback();
+
+		YoastSEO.app.registerPlugin( 'YoastWooCommercePlugin', { status: 'ready' } );
+
+		this.registerModifications();
 	}
 
 	/**
@@ -71,4 +75,20 @@
 		}
 
 	};
-}());
+
+	YoastWooCommercePlugin.prototype.registerModifications = function() {
+		var callback = this.addImageToContent.bind( this );
+
+		YoastSEO.app.registerModification( 'content', callback, 'YoastWooCommercePlugin', 10 );
+	};
+
+	YoastWooCommercePlugin.prototype.addImageToContent = function( data ) {
+		var images = jQuery( "#product_images_container" ).find( "img" );
+
+		for (i in images){
+			data += images[ i ];
+		}
+		return data;
+	}
+}
+());
