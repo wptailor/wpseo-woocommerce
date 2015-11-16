@@ -215,44 +215,6 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
-	 * Make sure the product images are used in calculating the score.
-	 *
-	 * @param string $content The content to modify
-	 * @param object $post    The post object for which we're doing the analysis.
-	 *
-	 * @return string
-	 */
-	function add_product_images_to_content( $content, $post ) {
-		if ( $post->post_type === 'product' ) {
-			$args = array(
-				'post_type'   => 'attachment',
-				'numberposts' => - 1,
-				'post_status' => 'inherit',
-				'post_parent' => $post->ID,
-			);
-
-			$attachments = get_posts( $args );
-			if ( is_array( $attachments ) && $attachments !== array() ) {
-				foreach ( $attachments as $attachment ) {
-					$content .= wp_get_attachment_image( $attachment->ID, 'thumbnail' ) . ' ';
-				}
-			}
-
-			if ( metadata_exists( 'post', $post->ID, '_product_image_gallery' ) ) {
-				$product_image_gallery = get_post_meta( $post->ID, '_product_image_gallery', true );
-
-				$attachments = array_filter( explode( ',', $product_image_gallery ) );
-
-				foreach ( $attachments as $attachment_id ) {
-					$content .= wp_get_attachment_image( $attachment_id, 'thumbnail' );
-				}
-			}
-		}
-
-		return $content;
-	}
-
-	/**
 	 * Add the product gallery images to the XML sitemap
 	 *
 	 * @param array $images  The array of images for the post
@@ -386,7 +348,7 @@ class Yoast_WooCommerce_SEO {
 		echo '
 		</select>
 		<br class="clear"/>
-		
+
 		<label class="select" for="schema_manufacturer">' . sprintf( __( 'Manufacturer', 'yoast-woo-seo' ), $i ) . ':</label>
 		<select class="select" id="schema_manufacturer" name="' . esc_attr( $this->short_name . '[schema_manufacturer]' ) . '">
 			<option value="">-</option>' . "\n";
