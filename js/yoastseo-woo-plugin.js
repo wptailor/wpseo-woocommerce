@@ -2,9 +2,17 @@
 	/**
 	 * Adds eventlistener to load the Yoast WooCommerce plugin
 	 */
-	jQuery( window ).on( 'YoastSEO:ready', function() {
+	if ( typeof YoastSEO !== 'undefined' && typeof YoastSEO.app !== 'undefined' ) {
 		new YoastWooCommercePlugin();
-	});
+	}
+	else {
+		jQuery( window ).on(
+			'YoastSEO:ready',
+			function() {
+				new YoastWooCommercePlugin();
+			}
+		);
+	}
 
 	/**
 	 * Registers Plugin and Test for Yoast WooCommerce.
