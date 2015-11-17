@@ -19,6 +19,8 @@
 		YoastSEO.app.registerPlugin( 'YoastWooCommercePlugin', { status: 'ready' } );
 
 		this.registerModifications();
+
+		this.bindEvents();
 	}
 
 	/**
@@ -74,6 +76,50 @@
 			elem.addEventListener( 'input', YoastSEO.app.analyzeTimer.bind( YoastSEO.app ) );
 		}
 
+	};
+
+	YoastWooCommercePlugin.prototype.bindEvents = function() {
+		jQuery( '.add_product_images' ).find( 'a' ).on( 'click', this.bindLinkEvent.bind( this ) );
+
+	};
+
+	var buttonEventCounter = 0;
+	var deleteEventCounter = 0;
+
+	YoastWooCommercePlugin.prototype.bindLinkEvent = function() {
+		if (jQuery( '.media-modal-content' ).find( '.media-button' ).length === 0 ) {
+			buttonEventCounter++;
+			if ( buttonEventCounter < 10 ) {
+				setTimeout( this.bindLinkEvent.bind( this ) );
+			}
+		} else {
+			buttonEventCounter = 0;
+			this.bindButtonEvent();
+
+		}
+	};
+
+	YoastWooCommercePlugin.prototype.bindButtonEvent = function() {
+		jQuery( '.media-modal-content' ).find( '.media-button' ).on( 'click', this.buttonCallback.bind( this )  );
+
+	};
+
+	YoastWooCommercePlugin.prototype.buttonCallback = function() {
+		//YoastSEO.app.analyzeTimer.bind( YoastSEO.app );
+		YoastSEO.app.analyzeTimer();
+		this.bindDeleteEvent();
+	};
+
+	YoastWooCommercePlugin.prototype.bindDeleteEvent = function() {
+		if ( jQuery( '#product_images_container' ).find( '.delete' ).length === 0 ){
+			deleteEventCounter++;
+			if ( deleteEventCounter < 10 ) {
+				setTimeout( this.bindDeleteEvent.bind( this ) );
+			}
+		} else {
+			deleteEventCounter = 0;
+			jQuery( '#product_images_container' ).find( '.delete' ).on( 'click', YoastSEO.app.analyzeTimer.bind( YoastSEO.app ) );
+		}
 	};
 
 	/**
