@@ -78,14 +78,25 @@
 
 	};
 
+	/**
+	 * binds events to the add_product_images anchor.
+	 */
 	YoastWooCommercePlugin.prototype.bindEvents = function() {
 		jQuery( '.add_product_images' ).find( 'a' ).on( 'click', this.bindLinkEvent.bind( this ) );
 
 	};
 
+	/**
+	 * counters for the setTimeouts, used to make sure we don't end up in an infinite loop.
+	 * @type {number}
+	 */
 	var buttonEventCounter = 0;
 	var deleteEventCounter = 0;
 
+	/**
+	 * after the modal dialog is opened, check for the button that adds images to the gallery to trigger
+	 * the modification.
+	 */
 	YoastWooCommercePlugin.prototype.bindLinkEvent = function() {
 		if (jQuery( '.media-modal-content' ).find( '.media-button' ).length === 0 ) {
 			buttonEventCounter++;
@@ -94,22 +105,23 @@
 			}
 		} else {
 			buttonEventCounter = 0;
-			this.bindButtonEvent();
-
+			jQuery( '.media-modal-content' ).find( '.media-button' ).on( 'click', this.buttonCallback.bind( this )  );
 		}
 	};
 
-	YoastWooCommercePlugin.prototype.bindButtonEvent = function() {
-		jQuery( '.media-modal-content' ).find( '.media-button' ).on( 'click', this.buttonCallback.bind( this )  );
-
-	};
-
+	/**
+	 * After the gallery is added, call the analyzeTimer of the app, to add the modifications.
+	 * Also call the bindDeleteEvent, to bind the analyzerTimer when an image is deleted.
+	 */
 	YoastWooCommercePlugin.prototype.buttonCallback = function() {
-		//YoastSEO.app.analyzeTimer.bind( YoastSEO.app );
 		YoastSEO.app.analyzeTimer();
 		this.bindDeleteEvent();
 	};
 
+	/**
+	 * Checks if the delete buttons of the added images are available. When they are, bind the analyzeTimer function
+	 * so when a image is removed, the modification is run.
+	 */
 	YoastWooCommercePlugin.prototype.bindDeleteEvent = function() {
 		if ( jQuery( '#product_images_container' ).find( '.delete' ).length === 0 ){
 			deleteEventCounter++;
