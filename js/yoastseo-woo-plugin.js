@@ -97,6 +97,6 @@
 			data += images[ i ].outerHTML;
 		}
 		return data;
-	}
+	};
 }
 ());
