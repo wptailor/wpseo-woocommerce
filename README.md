@@ -1,8 +1,8 @@
 WooCommerce Yoast SEO
 =====================
-Requires at least: 3.8<br>
-Tested up to: 4.2<br>
-Stable tag: 1.1.6<br>
+Requires at least: 4.0<br>
+Tested up to: 4.4<br>
+Stable tag: 3.0<br>
 
 This extension to WooCommerce and WordPress SEO by Yoast makes sure there's perfect communication between the two plugins.
 
@@ -28,6 +28,19 @@ You can find the FAQ [online here](https://yoast.com/wordpress/plugins/yoast-woo
 
 Changelog
 =========
+
+### 3.0: November 18th, 2015
+
+* Synchronized plugin version with all other Yoast SEO plugins for WordPress.
+
+* Bug fixes
+	* Fixes deprecation warnings for filters and functions that have been removed in Yoast SEO
+	* Fixes a fatal on the frontend when WooCommerce SEO is active but WooCommerce isn't.
+
+* Enhancements
+	* Makes sure WooCommerce specific content analysis checks work well with the Real Time content analysis tool in Yoast SEO 3.0.
+	* Makes sure the product image galleries are still analyzed as part of the content by the Real Time content analysis tool in Yoast SEO 3.0.
+	* Improves the order in which opengraph images are output. First the facebook image, then the facebook image, then the product gallery images.
 
 ### 1.1.6: November 11th, 2014
 * Bugfixes
