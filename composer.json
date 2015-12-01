@@ -2,11 +2,16 @@
     "name": "yoast/wpseo-woocommerce",
     "description": "This extension to WooCommerce and WordPress SEO by Yoast makes sure there's perfect communication between the two plugins.",
     "type": "wordpress-plugin",
+    "archive": {
+        "exclude": ["/grunt", "/tests", "/.*", "package.json", "codesniffer.xml"]
+    },
     "authors": [
         {
             "name": "Yoast Team",
             "email": "support@yoast.com"
         }
     ],
-    "require": {}
+    "require" : {
+      "composer/installers": "~1.0"
+    }
 }
